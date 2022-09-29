@@ -1,0 +1,24 @@
+@import "./base.css";
+
+body {
+  background-color: #e7e0ec;
+}
+
+.text-custom-primary {
+  color: #6750a4;
+}
+
+.bg-custom-primary {
+  background-color: #6750a4;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+.nomargin {
+  margin: 0 !important;
+}
