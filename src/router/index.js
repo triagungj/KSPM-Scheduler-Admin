@@ -83,7 +83,7 @@ const routes = [
     component: InfoAddViewVue,
   },
   {
-    path: "/info/edit",
+    path: "/info/edit/:id",
     name: "infoEdit",
     component: InfoEditViewVue,
   },

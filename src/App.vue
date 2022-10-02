@@ -19,4 +19,16 @@ if (token != null) {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+a {
+  text-decoration: none;
+}
+.btn-add {
+  border-radius: 8px;
+  padding: 12px 20px;
+  background-color: #6750a4;
+  transition: 0.5s;
+}
+.btn-add:hover {
+  background-color: #604be6;
+}
 </style>

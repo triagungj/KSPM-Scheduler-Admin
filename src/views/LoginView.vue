@@ -19,7 +19,6 @@ export default {
     return {
       username: "",
       password: "",
-      error: null,
       success: false,
     };
   },

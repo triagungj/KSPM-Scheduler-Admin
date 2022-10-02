@@ -24,7 +24,7 @@ function closeNav() {
     <div id="sidebarNav" class="sidebar vh-100 p-0">
       <div class="bg-light w-100 text-center py-3 border border-primary">
         <img
-          alt="Vue logo"
+          alt="KSPM UTY logo"
           class="logo"
           src="@/assets/AppLogo.svg"
           width="125"
@@ -149,7 +149,6 @@ export default {
   props: {
     page: String,
   },
-
   methods: {
     postLogout: async function () {
       const token = localStorage.getItem("user-token");
