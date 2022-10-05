@@ -14,6 +14,7 @@ import MemberPartisipanViewVue from "@/views/member/MemberPartisipanView.vue";
 import MemberAddPartisipanViewVue from "@/views/member/MemberAddPartisipanView.vue";
 import MemberEditPartisipanViewVue from "@/views/member/MemberEditPartisipanView.vue";
 import MasterViewVue from "@/views/MasterView.vue";
+import AdminChangePasswordVue from "@/views/admin/AdminChangePassword.vue";
 
 const routes = [
   {
@@ -91,6 +92,11 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: AdminViewVue,
+  },
+  {
+    path: "/admin/password-change",
+    name: "adminPasswordChange",
+    component: AdminChangePasswordVue,
   },
 ];
 

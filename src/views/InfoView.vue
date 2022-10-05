@@ -13,16 +13,18 @@ import InfoCard from "../components/InfoCard.vue";
       </RouterLink>
       <hr />
       <div class="content-info">
-        <InfoCard
-          v-for="info in infos"
-          :key="info.id"
-          :id="info.id"
-          :title="info.title"
-          :description="info.description"
-          :date="info.updated_at"
-          v-bind:onDelete="deleteNews"
-          editUrl="/info/edit"
-        />
+        <div id="listInfo">
+          <InfoCard
+            v-for="info in infos"
+            :key="info.id"
+            :id="info.id"
+            :title="info.title"
+            :description="info.description"
+            :date="info.updated_at"
+            v-bind:onDelete="deleteNews"
+            editUrl="/info/edit"
+          />
+        </div>
         <div
           id="loadingSpinner"
           class="text-center d-flex align-items-center"
@@ -78,9 +80,11 @@ const toast = useToast();
 
 function loadingStart() {
   document.getElementById("loadingSpinner").classList.remove("d-none");
+  document.getElementById("listInfo").classList.add("d-none");
 }
 function loadingFinish() {
   document.getElementById("loadingSpinner").classList.add("d-none");
+  document.getElementById("listInfo").classList.remove("d-none");
 }
 
 export default {
@@ -110,7 +114,7 @@ export default {
           loadingFinish();
         })
         .catch((error) => {
-          toast.error(error.response["statusText"], {
+          toast.error(error.response.data.message, {
             timeout: 2000,
           });
           loadingFinish();
@@ -128,10 +132,14 @@ export default {
           toast.success(response.data.message, {
             timeout: 2000,
           });
+          if (this.infos.length <= 1) {
+            this.currentPage--;
+            console.log(this.currentPage);
+          }
           this.getNewsList(this.currentPage);
         })
         .catch((error) => {
-          toast.error(error.response["statusText"], {
+          toast.error(error.response.data.message, {
             timeout: 2000,
           });
         });

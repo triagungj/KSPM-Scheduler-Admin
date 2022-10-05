@@ -159,9 +159,6 @@ export default {
           },
         })
         .then(() => {
-          localStorage.removeItem("user-token");
-          delete axios.defaults.headers.common["Authorization"];
-
           toast.success("Berhasil Logout!", {
             timeout: 2000,
           });
@@ -172,11 +169,17 @@ export default {
           }, delayInMilliseconds);
         })
         .catch((error) => {
-          toast.error(error.response["statusText"], {
+          toast.error(error.response.data.message, {
             timeout: 2000,
           });
+          var delayInMilliseconds = 1000; //1 second
+
+          setTimeout(function () {
+            router.push("/login");
+          }, delayInMilliseconds);
         });
-      console.log(token);
+      localStorage.removeItem("user-token");
+      delete axios.defaults.headers.common["Authorization"];
     },
   },
 };
@@ -198,10 +201,10 @@ a:hover {
   overflow-x: hidden;
   overflow-y: hidden;
   padding-top: 60px;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 .main {
-  transition: 0.5s;
+  transition: 0.2s;
 }
 
 nav li {
@@ -212,7 +215,7 @@ nav li {
   text-align: start;
   color: #ffffff;
   text-decoration: none;
-  transition: 0.5s;
+  transition: 0.2s;
   vertical-align: bottom;
 }
 nav li:hover,
@@ -267,7 +270,7 @@ nav .active {
 }
 
 .icon-home {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/HomeOutline.svg");
 }
 nav li:hover .icon-home,
@@ -275,7 +278,7 @@ nav .active .icon-home {
   background-image: url("@/assets/icons/Home.svg");
 }
 .icon-schedule {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/CalendarOutline.svg");
 }
 nav li:hover .icon-schedule,
@@ -283,7 +286,7 @@ nav .active .icon-schedule {
   background-image: url("@/assets/icons/Calendar.svg");
 }
 .icon-member {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/PersonOutlined.svg");
 }
 
@@ -292,7 +295,7 @@ nav .active .icon-member {
   background-image: url("@/assets/icons/Person.svg");
 }
 .icon-info {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/InfoOutlined.svg");
 }
 nav li:hover .icon-info,
@@ -300,7 +303,7 @@ nav .active .icon-info {
   background-image: url("@/assets/icons/Info.svg");
 }
 .icon-master {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/DatabaseOutlined.svg");
 }
 nav li:hover .icon-master,
@@ -309,7 +312,7 @@ nav .active .icon-master {
 }
 
 .icon-admin {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/PersonKeyOutlined.svg");
 }
 
@@ -321,21 +324,21 @@ nav .active .icon-admin {
 .logout-button {
   background-color: transparent;
   border: none;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 .logout-button:hover {
   background-color: #b32d2b;
 }
 .icon-logout {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/SignOut.svg");
 }
 .icon-navigation {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/Navigation.svg");
 }
 .icon-arrow {
-  transition: 0.5s;
+  transition: 0.2s;
   background-image: url("@/assets/icons/ArrowLeft.svg");
 }
 </style>

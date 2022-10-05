@@ -76,7 +76,7 @@ export default {
           router.push("/info");
         })
         .catch((error) => {
-          toast.error(error.response["statusText"], {
+          toast.error(error.response.data.message, {
             timeout: 2000,
           });
         });

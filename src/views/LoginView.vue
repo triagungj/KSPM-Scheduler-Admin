@@ -30,19 +30,20 @@ export default {
       axios
         .post("/login", body)
         .then((response) => {
-          const token = response.data.token;
-          localStorage.setItem("user-token", token);
-          axios.defaults.headers.common["Authorization"] = token;
-          loadingFinish();
-          router.push("/");
+          if (response.data.token != null) {
+            const token = response.data.token;
+            localStorage.setItem("user-token", token);
+            axios.defaults.headers.common["Authorization"] = token;
+            loadingFinish();
+            router.push("/");
+          }
         })
         .catch((error) => {
           loadingFinish();
-          toast.error(error.response["statusText"], {
+          toast.error(error.response.data.message, {
             timeout: 2000,
           });
         });
-      console.log(body);
     },
   },
 };
