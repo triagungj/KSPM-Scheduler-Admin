@@ -63,7 +63,7 @@ const routes = [
     component: MemberAddPartisipanViewVue,
   },
   {
-    path: "/member/partisipan/edit",
+    path: "/member/partisipan/edit/:id",
     name: "memberEditPartisipan",
     component: MemberEditPartisipanViewVue,
   },

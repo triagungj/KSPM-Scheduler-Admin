@@ -10,7 +10,7 @@ import Navbar from "../components/Navbar.vue";
           class="row d-flex align-items-center justify-content-around"
           style="height: 500px"
         >
-          <div class="col-6 col-xs-6 col-md-5 col-lg-4 text-center">
+          <div class="col-12 col-xs-12 col-md-5 col-lg-4 text-center">
             <RouterLink to="/member/petugas">
               <div class="card-content card p-5">
                 <img
@@ -24,7 +24,7 @@ import Navbar from "../components/Navbar.vue";
               </div>
             </RouterLink>
           </div>
-          <div class="col-6 col-xs-6 col-md-5 col-lg-4 text-center">
+          <div class="col-12 col-xs-12 col-md-5 col-lg-4 text-center">
             <RouterLink to="/member/partisipan">
               <div class="card-content card p-5">
                 <img

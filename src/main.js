@@ -16,7 +16,7 @@ import "@fortawesome/fontawesome-free/js/all.js";
 const app = createApp(App);
 
 axios.defaults.baseURL = process.env.VUE_APP_BASEURL;
-// axios.defaults.baseURL = process.env.VUE_APP_BASEURL;
+
 app.use(Toast);
 app.use(router);
 

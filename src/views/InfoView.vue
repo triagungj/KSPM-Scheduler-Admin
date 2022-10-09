@@ -22,11 +22,13 @@ import InfoCard from "../components/InfoCard.vue";
             :description="info.description"
             :date="info.updated_at"
             v-bind:onDelete="deleteNews"
+            v-bind:class="loading ? 'd-none' : ''"
             editUrl="/info/edit"
           />
         </div>
         <div
           id="loadingSpinner"
+          v-bind:class="loading ? '' : 'd-none'"
           class="text-center d-flex align-items-center"
           style="height: 400px"
         >
@@ -37,7 +39,8 @@ import InfoCard from "../components/InfoCard.vue";
           </div>
         </div>
         <div
-          v-if="!infos.length"
+          v-bind:class="!loading && infos.length ? 'd-none' : ''"
+          id="emptyState"
           class="text-center d-flex align-items-center"
           style="height: 400px"
         >
@@ -78,26 +81,18 @@ import { useToast } from "vue-toastification";
 
 const toast = useToast();
 
-function loadingStart() {
-  document.getElementById("loadingSpinner").classList.remove("d-none");
-  document.getElementById("listInfo").classList.add("d-none");
-}
-function loadingFinish() {
-  document.getElementById("loadingSpinner").classList.add("d-none");
-  document.getElementById("listInfo").classList.remove("d-none");
-}
-
 export default {
   data() {
     return {
       totalPage: null,
       currentPage: 0,
+      loading: false,
       infos: [],
     };
   },
   methods: {
     getNewsList: async function (page) {
-      loadingStart();
+      this.loading = true;
       const token = localStorage.getItem("user-token");
       axios
         .get("/news?page=" + page, {
@@ -111,13 +106,13 @@ export default {
           this.totalPage = Math.ceil(
             response.data.data.total / response.data.data.per_page
           );
-          loadingFinish();
+          this.loading = false;
         })
         .catch((error) => {
           toast.error(error.response.data.message, {
             timeout: 2000,
           });
-          loadingFinish();
+          this.loading = false;
         });
     },
     deleteNews: async function (id) {
