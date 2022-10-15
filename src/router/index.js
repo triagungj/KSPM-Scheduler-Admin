@@ -48,7 +48,7 @@ const routes = [
     component: MemberAddPetugasViewVue,
   },
   {
-    path: "/member/petugas/edit",
+    path: "/member/petugas/edit/:id",
     name: "memberEditPetugas",
     component: MemberEditPetugasViewVue,
   },

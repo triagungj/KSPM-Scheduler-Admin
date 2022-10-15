@@ -70,10 +70,19 @@ import Modal from "../../components/Modal.vue";
             </button>
           </RouterLink>
 
-          <button class="btn-add text-light px-4 mt-2">
+          <label
+            for="inputFile"
+            class="btn-add text-light px-4 mt-2"
+            style="cursor: pointer"
+          >
             <i class="fa-sharp fa-user-plus"></i>
             <span class="ps-3 font-weight-bold">Tambah Generate</span>
-          </button>
+            <input id="inputFile" type="file" class="d-none" />
+          </label>
+          <!-- <button class="btn-add text-light px-4 mt-2">
+            <i class="fa-sharp fa-user-plus"></i>
+            <span class="ps-3 font-weight-bold">Tambah Generate</span>
+          </button> -->
         </div>
         <div class="col-1"></div>
         <button
@@ -85,10 +94,10 @@ import Modal from "../../components/Modal.vue";
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
-
+      <hr />
       <div class="member-table">
         <table
-          class="table mt-2 content-table w-100"
+          class="table content-table w-100"
           v-bind:class="!loading && partisipans.length ? '' : 'd-none'"
         >
           <thead>

@@ -35,7 +35,7 @@ import Navbar from "../../components/Navbar.vue";
           </div>
         </div>
         <div class="d-flex justify-content-center mt-4">
-          <button @click="postInfo" class="btn btn-add text-light text-center">
+          <button @click="postInfo" class="btn-add text-light text-center">
             Tambah Info
           </button>
         </div>

@@ -6,7 +6,7 @@ import Navbar from "../../components/Navbar.vue";
   <Navbar page="member">
     <template #content>
       <h5 class="mb-3">Buat Akun Petugas</h5>
-      <form class="w-100">
+      <div class="w-100">
         <div class="row">
           <div class="col-12 col-md-6 mt-3">
             <div class="form-group">
@@ -16,6 +16,7 @@ import Navbar from "../../components/Navbar.vue";
                 class="form-control"
                 id="inputUsername"
                 placeholder="Username"
+                v-model="inputUsername"
               />
             </div>
           </div>
@@ -27,6 +28,7 @@ import Navbar from "../../components/Navbar.vue";
                 class="form-control"
                 id="inputPassword"
                 placeholder="Password"
+                v-model="inputPassword"
               />
             </div>
           </div>
@@ -38,6 +40,7 @@ import Navbar from "../../components/Navbar.vue";
                 class="form-control"
                 id="inputNamaLengkap"
                 placeholder="Nama Lengkap"
+                v-model="inputName"
               />
             </div>
           </div>
@@ -49,6 +52,7 @@ import Navbar from "../../components/Navbar.vue";
                 class="form-control"
                 id="inputNomorWhatsapp"
                 placeholder="628236534xxx"
+                v-model="inputPhoneNumber"
               />
             </div>
           </div>
@@ -60,6 +64,8 @@ import Navbar from "../../components/Navbar.vue";
               type="radio"
               name="radioPrevielege"
               id="radioSuperUser"
+              value="1"
+              v-model="inputSuperUser"
             />
             <label class="form-check-label" for="radioSuperUser">
               Superuser
@@ -71,7 +77,8 @@ import Navbar from "../../components/Navbar.vue";
               type="radio"
               name="radioPrevielege"
               id="radioDefaultUser"
-              checked
+              value="0"
+              v-model="inputSuperUser"
             />
             <label class="form-check-label" for="radioDefaultUser">
               Default
@@ -79,27 +86,66 @@ import Navbar from "../../components/Navbar.vue";
           </div>
         </div>
         <div class="d-flex justify-content-center mt-2">
-          <RouterLink to="/member/petugas">
-            <button
-              type="submit"
-              class="btn btn-register text-light text-center"
-            >
-              Buat Akun
-            </button>
-          </RouterLink>
+          <button
+            type="submit"
+            class="btn-add text-light text-center px-5"
+            @click="createPetugas"
+          >
+            Buat Akun
+          </button>
         </div>
-      </form>
+      </div>
     </template>
   </Navbar>
 </template>
+<script>
+import router from "@/router";
+import axios from "axios";
+import { useToast } from "vue-toastification";
 
-<style scoped>
-.btn-register {
-  background-color: #6750a4;
-  padding-left: 100px;
-  padding-right: 100px;
-}
-.btn-register:hover {
-  background-color: #8568d3;
-}
-</style>
+const toast = useToast();
+
+export default {
+  data() {
+    return {
+      inputUsername: "",
+      inputName: "",
+      inputPassword: "",
+      inputPhoneNumber: "",
+      inputSuperUser: "",
+    };
+  },
+  methods: {
+    createPetugas: async function () {
+      const token = localStorage.getItem("user-token");
+
+      const body = {
+        username: this.inputUsername,
+        name: this.inputName,
+        password: this.inputPassword,
+        phone_number: this.inputPhoneNumber,
+        super_user: this.inputSuperUser,
+      };
+      console.log(body);
+
+      axios
+        .post("/account/petugas", body, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((response) => {
+          toast.success(response.data.message, {
+            timeout: 2000,
+          });
+          router.push("/member/petugas");
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message, {
+            timeout: 2000,
+          });
+        });
+    },
+  },
+};
+</script>

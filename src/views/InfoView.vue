@@ -13,7 +13,10 @@ import InfoCard from "../components/InfoCard.vue";
       </RouterLink>
       <hr />
       <div class="content-info">
-        <div id="listInfo">
+        <div
+          id="listInfo"
+          v-bind:class="!loading && infos.length ? '' : 'd-none'"
+        >
           <InfoCard
             v-for="info in infos"
             :key="info.id"
@@ -22,7 +25,6 @@ import InfoCard from "../components/InfoCard.vue";
             :description="info.description"
             :date="info.updated_at"
             v-bind:onDelete="deleteNews"
-            v-bind:class="loading ? 'd-none' : ''"
             editUrl="/info/edit"
           />
         </div>
@@ -39,7 +41,7 @@ import InfoCard from "../components/InfoCard.vue";
           </div>
         </div>
         <div
-          v-bind:class="!loading && infos.length ? 'd-none' : ''"
+          v-bind:class="!loading && !infos.length ? '' : 'd-none'"
           id="emptyState"
           class="text-center d-flex align-items-center"
           style="height: 400px"

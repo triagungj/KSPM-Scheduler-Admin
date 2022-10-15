@@ -5,11 +5,11 @@ import Modal from "../../components/Modal.vue";
 
 <template>
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-    <Modal title="Hapus Info">
+    <Modal title="Hapus Partisipan">
       <template #modalContent>
         <img src="@/assets/icons/InfoDanger.svg" alt="Info Danger" />
         <p class="mt-4 p-0">
-          Akan menghapus Info dengan nama <b>{{ inputName }}</b>
+          Akan menghapus Partisipan dengan nama <b>{{ inputName }}</b>
         </p>
       </template>
       <template #buttonConfirm>
@@ -18,7 +18,7 @@ import Modal from "../../components/Modal.vue";
             type="button"
             class="btn btn-danger w-100"
             data-bs-dismiss="modal"
-            @click="deleteNews"
+            @click="deletePartisipan"
           >
             Hapus
           </button>
@@ -200,7 +200,26 @@ export default {
           this.inputMemberId = response.data.data.member_id;
           this.inputPhoneNumber = response.data.data.phone_number;
           this.inputJabatan = response.data.data.jabatan_id;
-          console.log(response.data.data);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message, {
+            timeout: 2000,
+          });
+        });
+    },
+    deletePartisipan: async function () {
+      const token = localStorage.getItem("user-token");
+      axios
+        .delete("/account/partisipan/" + this.id, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((response) => {
+          toast.success(response.data.message, {
+            timeout: 2000,
+          });
+          router.push("/member/partisipan");
         })
         .catch((error) => {
           toast.error(error.response.data.message, {
