@@ -19,6 +19,9 @@ if (token != null) {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+.bg-custom-primary {
+  background-color: #6750a4;
+}
 a {
   text-decoration: none;
 }

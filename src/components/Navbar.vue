@@ -74,7 +74,7 @@ function closeNav() {
       </div>
     </div>
 
-    <div id="main" class="w-100 main">
+    <div id="main" class="w-100 main bg-custom-outline">
       <div class="w-100 navbar-top pr-4 text-right">
         <div class="d-flex justify-content-between">
           <div>
@@ -202,6 +202,7 @@ a:hover {
   overflow-y: hidden;
   padding-top: 60px;
   transition: 0.2s;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .main {
   transition: 0.2s;

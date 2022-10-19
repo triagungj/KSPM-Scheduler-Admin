@@ -12,11 +12,44 @@ body {
   background-color: #6750a4;
 }
 
+.bg-custom-error {
+  background-color: #b32d2b;
+}
+
+.bg-custom-outline {
+  background-color: #e7e0ec;
+}
+
+.text-small {
+  font-size: 9pt;
+}
+.text-bold {
+  font-weight: bold;
+}
+.text-small-600 {
+  font-size: 9pt;
+  font-weight: 600;
+}
+
 a {
   text-decoration: none;
 }
 a:hover {
   text-decoration: none;
+}
+.btn-label {
+  border: none;
+  border-radius: 15px;
+  padding: 4px 15px;
+  font-size: 10pt;
+  transition: 0.25s;
+  background-color: #f8f9fa;
+}
+.btn-label:hover {
+  background-color: #dedede;
+}
+.label-active {
+  background-color: #dedede;
 }
 .btn-add {
   background-color: #6750a4;
@@ -28,6 +61,17 @@ a:hover {
 }
 .btn-add:hover {
   background-color: #9875f9;
+}
+.btn-error {
+  background-color: #b32d2b;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  background-color: #b32d2b;
+  transition: 0.5s;
+}
+.btn-error:hover {
+  background-color: #ec3a37;
 }
 .nomargin {
   margin: 0 !important;
