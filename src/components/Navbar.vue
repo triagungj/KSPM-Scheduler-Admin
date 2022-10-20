@@ -2,8 +2,8 @@
 import Modal from "./Modal.vue";
 
 function openNav() {
-  document.getElementById("sidebarNav").style.width = "22%";
-  document.getElementById("main").style.marginLeft = "22%";
+  document.getElementById("sidebarNav").style.width = "20%";
+  document.getElementById("main").style.marginLeft = "20%";
   document.getElementById("navigationCloseButton").classList.add("d-flex");
   document.getElementById("navigationCloseButton").classList.remove("d-none");
   document.getElementById("navigationButton").classList.add("d-none");
@@ -25,10 +25,8 @@ function closeNav() {
       <div class="bg-light w-100 text-center py-3 border border-primary">
         <img
           alt="KSPM UTY logo"
-          class="logo"
+          class="applogo mx-2"
           src="@/assets/AppLogo.svg"
-          width="125"
-          height="125"
         />
       </div>
       <div class="menu text-light pt-4">
@@ -36,38 +34,40 @@ function closeNav() {
           <RouterLink to="/" class="w-100">
             <li v-bind:class="{ active: page === 'home' }">
               <span class="align-middle icon icon-home"></span>
-              <span class="align-middle ms-3">Home</span>
+              <span class="align-middle ms-3 menu-label">Home</span>
             </li>
           </RouterLink>
           <RouterLink to="/schedule" class="w-100">
             <li v-bind:class="{ active: page === 'schedule' }">
               <span class="align-middle icon icon-schedule"></span>
-              <span class="align-middle ms-3">Kelola Jadwal</span>
+              <span class="align-middle ms-3 menu-label">Kelola Jadwal</span>
             </li>
           </RouterLink>
           <RouterLink to="/member" class="w-100">
             <li v-bind:class="{ active: page === 'member' }">
               <span class="align-middle icon icon-member"></span>
-              <span class="align-middle ms-3">Kelola Akun Pengguna</span>
+              <span class="align-middle ms-3 menu-label"
+                >Kelola Akun Pengguna</span
+              >
             </li>
           </RouterLink>
           <RouterLink to="/master" class="w-100">
             <li v-bind:class="{ active: page === 'master' }">
               <span class="align-middle icon icon-master"></span>
-              <span class="align-middle ms-3">Master Data</span>
+              <span class="align-middle ms-3 menu-label">Master Data</span>
             </li>
           </RouterLink>
           <RouterLink to="/info" class="w-100">
             <li v-bind:class="{ active: page === 'info' }">
               <span class="align-middle icon icon-info"></span>
-              <span class="align-middle ms-3">Update Info</span>
+              <span class="align-middle ms-3 menu-label">Update Info</span>
             </li>
           </RouterLink>
           <div style="min-height: 50px"></div>
           <RouterLink to="/admin" class="w-100">
             <li v-bind:class="{ active: page === 'admin' }">
               <span class="align-middle icon icon-admin"></span>
-              <span class="align-middle ms-3">Akun Admin</span>
+              <span class="align-middle ms-3 menu-label">Akun Admin</span>
             </li>
           </RouterLink>
         </nav>
@@ -247,13 +247,22 @@ nav .active {
   .navigation-close-button {
     display: none;
   }
+  .applogo {
+    width: 80px;
+  }
+  .menu nav li {
+    text-align: center;
+  }
+  .menu nav li .menu-label {
+    display: none;
+  }
 }
 @media screen and (min-width: 912px) {
   .sidebar {
-    width: 22%;
+    width: 20%;
   }
   .main {
-    margin-left: 22%;
+    margin-left: 20%;
   }
   .navigation-button {
     display: none;
