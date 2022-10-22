@@ -76,3 +76,21 @@ a:hover {
 .nomargin {
   margin: 0 !important;
 }
+
+.table-custom {
+  min-height: 475px;
+  overflow-x: auto;
+}
+
+.table-custom-content th {
+  font-weight: bold;
+}
+.table-custom-content th,
+.table-custom-content td {
+  border: 1px solid #6750a4;
+  text-align: center;
+}
+.table-custom-content thead {
+  background-color: #d9d9d9;
+  color: #6750a4;
+}

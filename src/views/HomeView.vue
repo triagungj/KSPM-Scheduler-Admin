@@ -29,6 +29,7 @@ import ScheduleCard from "@/components/ScheduleCard.vue";
         <div class="col-12 col-md-6 p-4">
           <ScheduleCard
             name="Pengurus"
+            v-if="!loading"
             :requested="schedulePengurus.requested"
             :rejected="schedulePengurus.rejected"
             :empty="schedulePengurus.empty"
@@ -40,6 +41,7 @@ import ScheduleCard from "@/components/ScheduleCard.vue";
         <div class="col-12 col-md-6 p-4">
           <ScheduleCard
             name="Anggota"
+            v-if="!loading"
             :requested="scheduleAnggota.requested"
             :rejected="scheduleAnggota.rejected"
             :empty="scheduleAnggota.empty"
@@ -47,6 +49,20 @@ import ScheduleCard from "@/components/ScheduleCard.vue";
             :accepted="scheduleAnggota.accepted"
             :total="scheduleAnggota.total"
           />
+        </div>
+        <div class="col-12">
+          <div
+            id="loadingSpinner"
+            v-bind:class="loading ? '' : 'd-none'"
+            class="text-center d-flex align-items-center"
+            style="height: 370px"
+          >
+            <div class="w-100">
+              <div class="spinner-border text-dark text-center" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </template>
@@ -62,6 +78,7 @@ const toast = useToast();
 export default {
   data: function () {
     return {
+      loading: false,
       schedulePengurus: {
         requested: 0,
         rejected: 0,
@@ -82,6 +99,7 @@ export default {
   },
   methods: {
     getScheduleCount: async function () {
+      this.loading = true;
       const token = localStorage.getItem("user-token");
       axios
         .get("/schedule/count", {
@@ -92,11 +110,13 @@ export default {
         .then((response) => {
           this.schedulePengurus = response.data.data.pengurus;
           this.scheduleAnggota = response.data.data.anggota;
+          this.loading = false;
         })
         .catch((error) => {
           toast.error(error.response.data.message, {
             timeout: 2000,
           });
+          this.loading = false;
         });
     },
   },

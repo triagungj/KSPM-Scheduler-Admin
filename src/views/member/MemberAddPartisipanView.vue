@@ -157,7 +157,7 @@ export default {
       const token = localStorage.getItem("user-token");
 
       axios
-        .get("/jabatans", {
+        .get("/master/jabatan", {
           headers: {
             Authorization: "Bearer " + token,
           },

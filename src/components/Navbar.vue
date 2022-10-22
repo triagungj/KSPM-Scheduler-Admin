@@ -74,7 +74,7 @@ function closeNav() {
       </div>
     </div>
 
-    <div id="main" class="w-100 main bg-custom-outline">
+    <div id="main" class="w-100 main min-vh-100 bg-custom-outline">
       <div class="w-100 navbar-top pr-4 text-right">
         <div class="d-flex justify-content-between">
           <div>

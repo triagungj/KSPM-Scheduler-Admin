@@ -1,9 +1,5 @@
 <script setup>
-import Navbar from "../components/Navbar.vue";
-</script>
+import router from "@/router";
 
-<template>
-  <header>
-    <Navbar page="master" />
-  </header>
-</template>
+router.replace("/master/sesi");
+</script>

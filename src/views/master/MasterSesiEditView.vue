@@ -1,15 +1,16 @@
 <script setup>
-import Navbar from "../../components/Navbar.vue";
+import Navbar from "@/components/Navbar.vue";
 import Modal from "../../components/Modal.vue";
+import MasterMenu from "@/components/MasterMenu.vue";
 </script>
-
 <template>
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-    <Modal title="Hapus Partisipan">
+    <Modal title="Hapus Sesi">
       <template #modalContent>
         <img src="@/assets/icons/InfoDanger.svg" alt="Info Danger" />
         <p class="mt-4 p-0">
-          Akan menghapus Partisipan dengan nama <b>{{ inputName }}</b>
+          Akan menghapus sesi <b>{{ inputName }}</b> di hari
+          <b>{{ inputHari }}</b>
         </p>
       </template>
       <template #buttonConfirm>
@@ -18,7 +19,7 @@ import Modal from "../../components/Modal.vue";
             type="button"
             class="btn btn-danger w-100"
             data-bs-dismiss="modal"
-            @click="deletePartisipan"
+            @click="deleteSesi"
           >
             Hapus
           </button>
@@ -26,98 +27,76 @@ import Modal from "../../components/Modal.vue";
       </template>
     </Modal>
   </div>
-  <Navbar page="member">
+  <Navbar page="master">
     <template #content>
-      <h5 class="mb-3">Edit Akun Partisipan</h5>
+      <h5>Kelola Master Data</h5>
+      <MasterMenu page="sesi" />
+      <hr />
+      <h6 class="mb-3 text-bold">Ubah Sesi</h6>
       <div class="w-100">
         <div class="row">
           <div class="col-12 col-md-6 mt-3">
             <div class="form-group">
-              <label for="inputUsername">Username</label>
+              <label for="inputName">Nama</label>
               <input
                 type="text"
                 class="form-control"
-                id="inputUsername"
-                placeholder="Username"
-                v-model="inputUsername"
-              />
-            </div>
-          </div>
-          <div class="col-12 col-md-6 mt-3">
-            <div class="form-group">
-              <label for="inputPassword">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="inputPassword"
-                placeholder="Password"
-                v-model="inputPassword"
-              />
-            </div>
-          </div>
-          <div class="col-12 col-md-6 mt-3">
-            <div class="form-group">
-              <label for="inputNamaLengkap">Nama Lengkap</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputNamaLengkap"
-                placeholder="Nama Lengkap"
+                id="inputName"
+                placeholder="Nama Sesi"
                 v-model="inputName"
               />
             </div>
           </div>
           <div class="col-12 col-md-6 mt-3">
-            <label for="selectJabatan">Jabatan</label>
-            <select
-              id="selectJabatan"
-              class="form-select"
-              v-model="inputJabatan"
-            >
+            <label for="selectHari">Hari</label>
+            <select id="selectHari" class="form-select" v-model="inputHari">
               <option value="" hidden selected>-</option>
-              <option
-                v-for="jabatan in jabatans"
-                v-bind:value="jabatan.id"
-                v-bind:key="jabatan.id"
-                v-bind:selected="inputJabatan == jabatan.id"
-              >
-                {{ jabatan.name }}
-              </option>
+              <option value="senin">Senin</option>
+              <option value="selasa">Selasa</option>
+              <option value="rabu">Rabu</option>
+              <option value="kamis">Kamis</option>
+              <option value="jumat">Jumat</option>
             </select>
           </div>
           <div class="col-12 col-md-6 mt-3">
             <div class="form-group">
-              <label for="inputIdAnggota">ID Anggota</label>
+              <label for="inputWaktu">Waktu</label>
               <input
                 type="text"
                 class="form-control"
-                id="inputIdAnggota"
-                placeholder="ID Anggota"
-                v-model="inputMemberId"
+                id="inputWaktu"
+                placeholder="09:00 - 10:30"
+                v-model="inputWaktu"
               />
             </div>
           </div>
           <div class="col-12 col-md-6 mt-3">
-            <div class="form-group">
-              <label for="inputNomorWhatsapp">Nomor Whatsapp</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputNomorWhatsapp"
-                placeholder="628236534xxx"
-                v-model="inputPhoneNumber"
-              />
-            </div>
+            <label for="selectPertemuan">Pertemuan</label>
+            <select
+              id="selectPertemuan"
+              class="form-select"
+              v-model="inputPertemuanId"
+            >
+              <option value="" hidden selected>-</option>
+              <option
+                v-for="pertemuan in pertemuans"
+                v-bind:value="pertemuan.id"
+                v-bind:key="pertemuan.id"
+                v-bind:selected="inputPertemuanId == pertemuan.id"
+              >
+                {{ pertemuan.name }}
+              </option>
+            </select>
           </div>
         </div>
 
         <div class="d-flex justify-content-center mt-4">
           <button
-            @click="putPartisipan"
             type="submit"
             class="btn btn-primary px-5 text-light text-center"
+            @click="updateSesi"
           >
-            Edit Akun
+            Ubah Sesi
           </button>
           <button
             type="submit"
@@ -125,50 +104,48 @@ import Modal from "../../components/Modal.vue";
             data-bs-target="#deleteModal"
             class="btn btn-danger px-4 text-light text-center mx-2"
           >
-            Hapus Partisipan
+            Hapus Sesi
           </button>
         </div>
       </div>
     </template>
   </Navbar>
 </template>
+
 <script>
 import router from "@/router";
 import axios from "axios";
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
-
 export default {
   data() {
     return {
-      inputUsername: "",
       inputName: "",
-      inputPassword: "",
-      inputPhoneNumber: "",
-      inputMemberId: "",
-      inputJabatan: "",
-      jabatans: [],
+      inputHari: "",
+      inputWaktu: "",
+      inputPertemuanId: "",
+      pertemuans: [],
     };
   },
   params: {
     id: String,
   },
   methods: {
-    putPartisipan: async function () {
+    updateSesi: async function () {
       const token = localStorage.getItem("user-token");
 
       const body = {
-        username: this.inputUsername,
+        id: this.id,
         name: this.inputName,
-        password: this.inputPassword,
-        jabatan_id: this.inputJabatan,
-        member_id: this.inputMemberId,
-        phone_number: this.inputPhoneNumber,
+        pertemuan_id: this.inputPertemuanId,
+        hari: this.inputHari,
+        waktu: this.inputWaktu,
       };
+      console.log(body);
 
       axios
-        .put("/account/partisipan/" + this.id, body, {
+        .put("/master/sesi", body, {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -177,7 +154,7 @@ export default {
           toast.success(response.data.message, {
             timeout: 2000,
           });
-          router.push("/member/partisipan");
+          router.push("/master/sesi");
         })
         .catch((error) => {
           toast.error(error.response.data.message, {
@@ -185,21 +162,20 @@ export default {
           });
         });
     },
-    getPartisipan: async function () {
+    getDetailSesi: async function () {
       const token = localStorage.getItem("user-token");
 
       axios
-        .get("/account/partisipan/" + this.id, {
+        .get("/master/sesi/" + this.id, {
           headers: {
             Authorization: "Bearer " + token,
           },
         })
         .then((response) => {
-          this.inputUsername = response.data.data.username;
           this.inputName = response.data.data.name;
-          this.inputMemberId = response.data.data.member_id;
-          this.inputPhoneNumber = response.data.data.phone_number;
-          this.inputJabatan = response.data.data.jabatan_id;
+          this.inputHari = response.data.data.hari;
+          this.inputWaktu = response.data.data.waktu;
+          this.inputPertemuanId = response.data.data.pertemuan_id;
         })
         .catch((error) => {
           toast.error(error.response.data.message, {
@@ -207,10 +183,28 @@ export default {
           });
         });
     },
-    deletePartisipan: async function () {
+    getListPertemuan: async function () {
+      const token = localStorage.getItem("user-token");
+
+      axios
+        .get("/master/pertemuan", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((response) => {
+          this.pertemuans = response.data.data;
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message, {
+            timeout: 2000,
+          });
+        });
+    },
+    deleteSesi: async function () {
       const token = localStorage.getItem("user-token");
       axios
-        .delete("/account/partisipan/" + this.id, {
+        .delete("/master/sesi/" + this.id, {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -219,25 +213,7 @@ export default {
           toast.success(response.data.message, {
             timeout: 2000,
           });
-          router.push("/member/partisipan");
-        })
-        .catch((error) => {
-          toast.error(error.response.data.message, {
-            timeout: 2000,
-          });
-        });
-    },
-    getListJabatan: async function () {
-      const token = localStorage.getItem("user-token");
-
-      axios
-        .get("/master/jabatan", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((response) => {
-          this.jabatans = response.data.data;
+          router.replace("/master/sesi");
         })
         .catch((error) => {
           toast.error(error.response.data.message, {
@@ -248,19 +224,13 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.id;
-    this.getListJabatan();
-    this.getPartisipan();
+    this.getDetailSesi();
+    this.getListPertemuan();
   },
 };
 </script>
-
 <style scoped>
-.btn-register {
-  background-color: #6750a4;
-  padding-left: 100px;
-  padding-right: 100px;
-}
-.btn-register:hover {
-  background-color: #8568d3;
+a {
+  text-decoration: none;
 }
 </style>

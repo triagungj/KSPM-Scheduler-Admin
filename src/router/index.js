@@ -14,7 +14,19 @@ import MemberPartisipanViewVue from "@/views/member/MemberPartisipanView.vue";
 import MemberAddPartisipanViewVue from "@/views/member/MemberAddPartisipanView.vue";
 import MemberEditPartisipanViewVue from "@/views/member/MemberEditPartisipanView.vue";
 import MasterViewVue from "@/views/MasterView.vue";
+import MasterSesiViewVue from "@/views/master/MasterSesiView.vue";
+import MasterSesiAddViewVue from "@/views/master/MasterSesiAddView.vue";
+import MasterSesiEditViewVue from "@/views/master/MasterSesiEditView.vue";
+import MasterPertemuanViewVue from "@/views/master/MasterPertemuanView.vue";
+import MasterPertemuanAddViewVue from "@/views/master/MasterPertemuanAddView.vue";
+import MasterPertemuanEditViewVue from "@/views/master/MasterPertemuanEditView.vue";
+import MasterJabatanViewVue from "@/views/master/MasterJabatanView.vue";
+import MasterJabatanCategoryViewVue from "@/views/master/MasterJabatanCategoryView.vue";
 import AdminChangePasswordVue from "@/views/admin/AdminChangePassword.vue";
+import MasterJabatanAddViewVue from "@/views/master/MasterJabatanAddView.vue";
+import MasterJabatanEditViewVue from "@/views/master/MasterJabatanEditView.vue";
+import MasterJabatanCategoryAddViewVue from "@/views/master/MasterJabatanCategoryAddView.vue";
+import MasterJabatanCategoryEditViewVue from "@/views/master/MasterJabatanCategoryEditView.vue";
 
 const routes = [
   {
@@ -73,6 +85,67 @@ const routes = [
     name: "master",
     component: MasterViewVue,
   },
+  {
+    path: "/master/sesi",
+    name: "masterSesi",
+    component: MasterSesiViewVue,
+  },
+  {
+    path: "/master/sesi/add",
+    name: "masterSesiAdd",
+    component: MasterSesiAddViewVue,
+  },
+  {
+    path: "/master/sesi/edit/:id",
+    name: "masterSesiEdit",
+    component: MasterSesiEditViewVue,
+  },
+  {
+    path: "/master/pertemuan",
+    name: "masterPertemuan",
+    component: MasterPertemuanViewVue,
+  },
+  {
+    path: "/master/pertemuan/add",
+    name: "masterPertemuanAdd",
+    component: MasterPertemuanAddViewVue,
+  },
+  {
+    path: "/master/pertemuan/edit/:id",
+    name: "masterPertemuanEdit",
+    component: MasterPertemuanEditViewVue,
+  },
+  {
+    path: "/master/jabatan",
+    name: "masterJabatan",
+    component: MasterJabatanViewVue,
+  },
+  {
+    path: "/master/jabatan/add",
+    name: "masterJabatanAdd",
+    component: MasterJabatanAddViewVue,
+  },
+  {
+    path: "/master/jabatan/edit/:id",
+    name: "masterJabatanEdit",
+    component: MasterJabatanEditViewVue,
+  },
+  {
+    path: "/master/jabatan-category",
+    name: "masterJabatanCategory",
+    component: MasterJabatanCategoryViewVue,
+  },
+  {
+    path: "/master/jabatan-category/add",
+    name: "masterJabatanCategoryAdd",
+    component: MasterJabatanCategoryAddViewVue,
+  },
+  {
+    path: "/master/jabatan-category/edit/:id",
+    name: "masterJabatanCategoryEdit",
+    component: MasterJabatanCategoryEditViewVue,
+  },
+
   {
     path: "/info",
     name: "info",

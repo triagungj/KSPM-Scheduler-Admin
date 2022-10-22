@@ -78,9 +78,8 @@ import Modal from "../../components/Modal.vue";
           <tr
             v-for="(petugas, index) in listPetugas"
             :key="petugas"
-            class="text-custom-primary"
           >
-            <th scope="row">{{ ++index }}</th>
+            <td scope="row">{{ ++index }}</td>
             <td>{{ petugas.username }}</td>
             <td>{{ petugas.name }}</td>
             <td>{{ petugas.is_superuser ? "YES" : "NO" }}</td>

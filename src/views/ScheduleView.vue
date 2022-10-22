@@ -174,7 +174,7 @@ import Modal from "../components/Modal.vue";
                 >
                   {{ schedule.hari }}
                 </th>
-                <th v-for="sesi in schedule.list_sesi" :key="sesi" width="20%">
+                <th v-for="sesi in schedule.list_sesi" :key="sesi">
                   {{ sesi.name }} ({{ sesi.waktu }})
                 </th>
               </tr>

@@ -79,10 +79,6 @@ import Modal from "../../components/Modal.vue";
             <span class="ps-3 font-weight-bold">Tambah Generate</span>
             <input id="inputFile" type="file" class="d-none" />
           </label>
-          <!-- <button class="btn-add text-light px-4 mt-2">
-            <i class="fa-sharp fa-user-plus"></i>
-            <span class="ps-3 font-weight-bold">Tambah Generate</span>
-          </button> -->
         </div>
         <div class="col-1"></div>
         <button
@@ -95,9 +91,9 @@ import Modal from "../../components/Modal.vue";
         </button>
       </div>
       <hr />
-      <div class="member-table">
+      <div class="table-custom">
         <table
-          class="table content-table w-100"
+          class="table table-custom-content w-100"
           v-bind:class="!loading && partisipans.length ? '' : 'd-none'"
         >
           <thead>
@@ -111,11 +107,7 @@ import Modal from "../../components/Modal.vue";
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(partisipan, index) in partisipans"
-              :key="partisipan"
-              class="text-custom-primary"
-            >
+            <tr v-for="(partisipan, index) in partisipans" :key="partisipan">
               <th scope="row">{{ counter + index + 1 }}</th>
               <td>{{ partisipan.username }}</td>
               <td>{{ partisipan.name }}</td>
@@ -330,34 +322,5 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-}
-.btn-add {
-  background-color: #6750a4;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 20px;
-  background-color: #6750a4;
-  transition: 0.5s;
-}
-.btn-add:hover {
-  background-color: #9875f9;
-}
-
-.member-table {
-  min-height: 475px;
-  overflow-x: auto;
-}
-
-.content-table th {
-  font-weight: bold;
-}
-.content-table th,
-.content-table td {
-  border: 1px solid #6750a4;
-  text-align: center;
-}
-.content-table thead {
-  background-color: #d9d9d9;
-  color: #6750a4;
 }
 </style>
