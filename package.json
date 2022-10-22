@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve-dev": "vue-cli-service serve --mode dev",
     "serve-local": "vue-cli-service serve --mode local",
-    "build-dev": "vue-cli-service build --mode dev",
-    "build-prod": "vue-cli-service build --mode prod",
+    "serve-dev": "vue-cli-service serve --mode dev",
+    "serve-stg": "vue-cli-service serve --mode stg",
+    "serve-prod": "vue-cli-service serve --mode prod",
+    "build-dev": "vue-cli-service build --mode dev --dest ../admin.dev.kspm.triagungj.site",
+    "build-stg": "vue-cli-service build --mode stg --dest ../admin.stg.kspm.triagungj.site",
+    "build-prod": "vue-cli-service build --mode prod --dest ../admin.kspm.triagungj.site",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
