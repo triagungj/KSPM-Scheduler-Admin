@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginViewVue from "@/views/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
 import ScheduleViewVue from "@/views/ScheduleView.vue";
+import ScheduleGenerateViewVue from "@/views/schedule/ScheduleGenerateView.vue";
 import MemberViewVue from "@/views/MemberView.vue";
 import InfoViewVue from "@/views/InfoView.vue";
 import InfoAddViewVue from "@/views/info/InfoAddView.vue";
@@ -43,6 +44,11 @@ const routes = [
     path: "/schedule",
     name: "schedule",
     component: ScheduleViewVue,
+  },
+  {
+    path: "/schedule/generate",
+    name: "scheduleGenerate",
+    component: ScheduleGenerateViewVue,
   },
   {
     path: "/member",
