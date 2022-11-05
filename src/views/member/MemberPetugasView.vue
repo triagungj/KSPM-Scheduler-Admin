@@ -70,7 +70,6 @@ import Modal from "../../components/Modal.vue";
             <th scope="col">No.</th>
             <th scope="col">Username</th>
             <th scope="col">Nama</th>
-            <th scope="col">Superuser</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -82,7 +81,6 @@ import Modal from "../../components/Modal.vue";
             <td scope="row">{{ ++index }}</td>
             <td>{{ petugas.username }}</td>
             <td>{{ petugas.name }}</td>
-            <td>{{ petugas.is_superuser ? "YES" : "NO" }}</td>
             <td>
               <div class="d-flex justify-content-around">
                 <RouterLink

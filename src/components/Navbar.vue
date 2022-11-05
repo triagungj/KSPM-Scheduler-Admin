@@ -165,7 +165,7 @@ export default {
           var delayInMilliseconds = 1000; //1 second
 
           setTimeout(function () {
-            router.push("/login");
+            router.replace("/login");
           }, delayInMilliseconds);
         })
         .catch((error) => {

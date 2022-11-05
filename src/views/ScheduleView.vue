@@ -56,10 +56,7 @@ import Modal from "../components/Modal.vue";
               <p class="text-small-600 m-0">{{ formatDate(lastUpdate) }}</p>
             </div>
             <RouterLink to="schedule/generate">
-              <button
-                to="/schedule/generate"
-                class="btn-add mt-2 text-light text-small text-bold px-4"
-              >
+              <button class="btn-add mt-2 text-light text-small text-bold px-4">
                 <span>Atur Ulang Jadwal</span>
               </button>
             </RouterLink>
@@ -111,10 +108,6 @@ import Modal from "../components/Modal.vue";
             class="mb-2"
           />
           <h5>Belum ada Jadwal yang diatur</h5>
-          <button class="btn btn-outline-primary mt-2 px-4">
-            <i class="fa fa-history me-3"></i>
-            <span>Mulai Atur Jadwal</span>
-          </button>
         </div>
       </div>
       <div class="schedule-view" v-if="!loading && schedules.length">
@@ -335,8 +328,9 @@ export default {
       XLSX.utils.book_append_sheet(workbook, ws1, "Pengurus");
       XLSX.utils.book_append_sheet(workbook, ws2, "Anggota");
 
-      // var wb2 = XLSX.utils.table_to_book(tableAnggota, { sheet: "Anggota" });
-      XLSX.writeFile(workbook, "Jadwal12.xlsx", { cellStyles: true });
+      XLSX.writeFile(workbook, "Jadwal-" + this.lastUpdate + ".xlsx", {
+        cellStyles: true,
+      });
     },
   },
   mounted() {

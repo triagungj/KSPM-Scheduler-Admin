@@ -77,7 +77,12 @@ import Modal from "../../components/Modal.vue";
           >
             <i class="fa-sharp fa-user-plus"></i>
             <span class="ps-3 font-weight-bold">Tambah Generate</span>
-            <input id="inputFile" type="file" class="d-none" />
+            <input
+              id="inputFile"
+              type="file"
+              class="d-none"
+              @change="generatePartisipan"
+            />
           </label>
         </div>
         <div class="col-1"></div>
@@ -111,7 +116,7 @@ import Modal from "../../components/Modal.vue";
               <th scope="row">{{ counter + index + 1 }}</th>
               <td>{{ partisipan.username }}</td>
               <td>{{ partisipan.name }}</td>
-              <td>{{ partisipan.jabatan }}</td>
+              <td>{{ partisipan.jabatan ?? "-" }}</td>
               <td>{{ partisipan.member_id }}</td>
               <td>
                 <div class="d-flex justify-content-around">
@@ -298,6 +303,33 @@ export default {
         .delete("/account/partisipans", {
           headers: {
             Authorization: "Bearer " + token,
+          },
+        })
+        .then((response) => {
+          toast.success(response.data.message, {
+            timeout: 2000,
+          });
+          this.getPartisipanList(1);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message, {
+            timeout: 2000,
+          });
+        });
+    },
+    generatePartisipan: async function (event) {
+      const token = localStorage.getItem("user-token");
+      const body = {
+        file: event.target.files[0],
+      };
+      console.log(body);
+      this.loading = true;
+      axios
+        .post("/account/partisipans", body, {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "multipart/form-data",
+            Accept: "application/json"
           },
         })
         .then((response) => {

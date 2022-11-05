@@ -81,34 +81,6 @@ import Modal from "../../components/Modal.vue";
           </div>
         </div>
         <div class="d-flex justify-content-center mt-4">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="radioPrevielege"
-              id="radioSuperUser"
-              value="1"
-              v-model="inputSuperUser"
-            />
-            <label class="form-check-label" for="radioSuperUser">
-              Superuser
-            </label>
-          </div>
-          <div class="form-check ms-4">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="radioPrevielege"
-              id="radioDefaultUser"
-              value="0"
-              v-model="inputSuperUser"
-            />
-            <label class="form-check-label" for="radioDefaultUser">
-              Default
-            </label>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center mt-2">
           <button
             type="submit"
             class="btn-add text-light text-center px-5"
@@ -144,7 +116,6 @@ export default {
       inputName: "",
       inputPassword: "",
       inputPhoneNumber: "",
-      inputSuperUser: "",
     };
   },
   params: {
@@ -164,7 +135,6 @@ export default {
           this.inputUsername = response.data.data.username;
           this.inputName = response.data.data.name;
           this.inputPhoneNumber = response.data.data.phone_number;
-          this.inputSuperUser = response.data.data.is_superuser ? "1" : "0";
         })
         .catch((error) => {
           toast.error(error.response.data.message, {
@@ -180,7 +150,6 @@ export default {
         name: this.inputName,
         password: this.inputPassword,
         phone_number: this.inputPhoneNumber,
-        super_user: this.inputSuperUser,
       };
       console.log(body);
 

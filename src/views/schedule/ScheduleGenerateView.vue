@@ -117,7 +117,11 @@ import Modal from "../../components/Modal.vue";
             class="mb-2"
           />
           <h5>Belum ada Jadwal yang diatur</h5>
-          <button class="btn btn-outline-primary mt-2 px-4">
+          <button
+            data-bs-toggle="modal"
+            :data-bs-target="'#rescheduleModal'"
+            class="btn btn-outline-primary mt-2 px-4"
+          >
             <i class="fa fa-history me-3"></i>
             <span>Mulai Atur Jadwal</span>
           </button>
