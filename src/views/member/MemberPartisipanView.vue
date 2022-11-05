@@ -319,17 +319,15 @@ export default {
     },
     generatePartisipan: async function (event) {
       const token = localStorage.getItem("user-token");
-      const body = {
-        file: event.target.files[0],
-      };
-      console.log(body);
+      let formData = new FormData();
+      formData.append('file', event.target.files[0]);
       this.loading = true;
       axios
-        .post("/account/partisipans", body, {
+        .post("/account/partisipans", formData, {
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "multipart/form-data",
-            Accept: "application/json"
+            Accept: "application/json",
           },
         })
         .then((response) => {
@@ -342,6 +340,7 @@ export default {
           toast.error(error.response.data.message, {
             timeout: 2000,
           });
+          this.loading = false;
         });
     },
   },
