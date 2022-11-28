@@ -9,7 +9,7 @@
     "serve-prod": "vue-cli-service serve --mode prod",
     "build-dev": "vue-cli-service build --mode dev --dest ../admin.dev.kspm.triagungj.site",
     "build-stg": "vue-cli-service build --mode stg --dest ../admin.stg.kspm.triagungj.site",
-    "build-prod": "vue-cli-service build --mode prod --dest ../admin.kspm.triagungj.site",
+    "build-production": "vue-cli-service build --mode prod --dest ../admin.kspm.triagungj.site",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
