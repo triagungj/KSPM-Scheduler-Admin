@@ -34,6 +34,61 @@ import Modal from "../../components/Modal.vue";
   </div>
   <div
     class="modal fade"
+    :id="'scheduleConfig'"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <Modal title="Pengaturan Otomasi Jadwal">
+      <template #modalContent>
+        <div class="form-group mt-2">
+          <div class="d-flex aligne-items-start mb-1">
+            <label class="">Populasi</label>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Populasi"
+            v-model="populationTotal"
+          />
+        </div>
+        <div class="form-group mt-2">
+          <div class="d-flex aligne-items-start mb-1">
+            <label class="">Mutation Rate (%)</label>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Mutation Rate"
+            v-model="mutationRate"
+          />
+        </div>
+        <div class="form-group mt-2">
+          <div class="d-flex aligne-items-start mb-1">
+            <label class="">Maksimal Iterasi</label>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Maksimal Iterasi"
+            v-model="maxIteration"
+          />
+        </div>
+      </template>
+      <template #buttonConfirm>
+        <div>
+          <button
+            type="button"
+            class="btn-add text-light w-100"
+            data-bs-dismiss="modal"
+          >
+            Simpan
+          </button>
+        </div>
+      </template>
+    </Modal>
+  </div>
+  <div
+    class="modal fade"
     :id="'submitScheduleModal'"
     tabindex="-1"
     aria-hidden="true"
@@ -77,6 +132,13 @@ import Modal from "../../components/Modal.vue";
               <i class="fa fa-sync-alt me-3"></i>
               <span>Generate Jadwal</span>
             </button>
+            <button
+              class="btn-outline-custom mt-2 ms-2 text-primary"
+              data-bs-toggle="modal"
+              :data-bs-target="'#scheduleConfig'"
+            >
+              <i class="fa fa-gear"></i>
+            </button>
           </div>
         </div>
         <div class="d-flex">
@@ -91,9 +153,10 @@ import Modal from "../../components/Modal.vue";
         </div>
       </div>
       <hr />
+      <h5 v-if="fitness != null && !loading">Fitness: {{ fitness }}</h5>
       <div
         id="loadingSpinner"
-        v-bind:class="loading ? '' : 'd-none'"
+        v-if="loading"
         class="text-center d-flex align-items-center"
         style="height: 400px"
       >
@@ -168,7 +231,10 @@ import Modal from "../../components/Modal.vue";
               <td v-for="sesiIndex in schedule.list_sesi" :key="sesiIndex">
                 {{
                   sesiIndex.anggota[anggotaIndex - 1] != null
-                    ? sesiIndex.anggota[anggotaIndex - 1].partisipan_name
+                    ? sesiIndex.anggota[anggotaIndex - 1].partisipan_name +
+                      " (" +
+                      sesiIndex.anggota[anggotaIndex - 1].jabatan_category +
+                      ")"
                     : ""
                 }}
               </td>
@@ -181,7 +247,10 @@ import Modal from "../../components/Modal.vue";
               <td v-for="sesiIndex in schedule.list_sesi" :key="sesiIndex">
                 {{
                   sesiIndex.pengurus[pengurusIndex - 1] != null
-                    ? sesiIndex.pengurus[pengurusIndex - 1].partisipan_name
+                    ? sesiIndex.pengurus[pengurusIndex - 1].partisipan_name +
+                      " (" +
+                      sesiIndex.pengurus[pengurusIndex - 1].jabatan_category +
+                      ")"
                     : ""
                 }}
               </td>
@@ -224,7 +293,10 @@ export default {
       schedules: [],
       isPengurus: true,
       loading: false,
-      confirmationText: "",
+      fitness: null,
+      populationTotal: null,
+      mutationRate: null,
+      maxIteration: null,
     };
   },
   methods: {
@@ -252,8 +324,14 @@ export default {
       this.loading = true;
       this.schedule = [];
       const token = localStorage.getItem("user-token");
+
+      const body = {
+        population_total: this.populationTotal,
+        mutation_rate: this.mutationRate,
+        max_iteration: this.maxIteration,
+      };
       axios
-        .get("/schedule/generate", {
+        .post("/schedule/generate", body, {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -263,6 +341,7 @@ export default {
             timeout: 2000,
           });
           this.schedules = response.data.data;
+          this.fitness = response.data.fitness;
           this.loading = false;
         })
         .catch((error) => {

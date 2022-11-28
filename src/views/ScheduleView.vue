@@ -151,7 +151,10 @@ import Modal from "../components/Modal.vue";
               <td v-for="sesiIndex in schedule.list_sesi" :key="sesiIndex">
                 {{
                   sesiIndex.pengurus[pengurusIndex - 1] != null
-                    ? sesiIndex.pengurus[pengurusIndex - 1].partisipan_name
+                    ? sesiIndex.pengurus[pengurusIndex - 1].partisipan_name +
+                      " (" +
+                      sesiIndex.pengurus[pengurusIndex - 1].jabatan_category +
+                      ")"
                     : ""
                 }}
               </td>
@@ -184,7 +187,10 @@ import Modal from "../components/Modal.vue";
               <td v-for="sesiIndex in schedule.list_sesi" :key="sesiIndex">
                 {{
                   sesiIndex.anggota[anggotaIndex - 1] != null
-                    ? sesiIndex.anggota[anggotaIndex - 1].partisipan_name
+                    ? sesiIndex.anggota[anggotaIndex - 1].partisipan_name +
+                      " (" +
+                      sesiIndex.anggota[anggotaIndex - 1].jabatan_category +
+                      ")"
                     : ""
                 }}
               </td>
