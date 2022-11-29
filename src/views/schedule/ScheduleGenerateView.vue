@@ -16,7 +16,7 @@ import Modal from "../../components/Modal.vue";
           alt="Reschedule Ilus"
           width="200"
         />
-        <h6 class="mt-4">Akan mengatur ulang jadwal Partisipan</h6>
+        <h6 class="mt-4">Akan Mengolah Jadwal Partisipan</h6>
       </template>
       <template #buttonConfirm>
         <div>
@@ -45,10 +45,11 @@ import Modal from "../../components/Modal.vue";
             <label class="">Populasi</label>
           </div>
           <input
-            type="text"
+            type="number"
             class="form-control"
             placeholder="Populasi"
             v-model="populationTotal"
+            min="3"
           />
         </div>
         <div class="form-group mt-2">
@@ -56,9 +57,11 @@ import Modal from "../../components/Modal.vue";
             <label class="">Mutation Rate (%)</label>
           </div>
           <input
-            type="text"
+            type="number"
             class="form-control"
             placeholder="Mutation Rate"
+            max="100"
+            min="0"
             v-model="mutationRate"
           />
         </div>
@@ -67,9 +70,10 @@ import Modal from "../../components/Modal.vue";
             <label class="">Maksimal Iterasi</label>
           </div>
           <input
-            type="text"
+            type="number"
             class="form-control"
             placeholder="Maksimal Iterasi"
+            min="1"
             v-model="maxIteration"
           />
         </div>

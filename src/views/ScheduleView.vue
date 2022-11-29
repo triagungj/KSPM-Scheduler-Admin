@@ -15,14 +15,14 @@ import Modal from "../components/Modal.vue";
         <img src="@/assets/icons/InfoDanger.svg" alt="Info Danger" />
         <p class="mt-4">
           Jadwal yang diinput oleh Partisipan akan dihapus. Konfirmasi dengan
-          mengetik <br />"<b>HAPUS SEMUA JADWAL PARTISIPAN</b>" <br />pada form
-          di bawah ini.
+          mengetik <br />"<b>HAPUS SEMUA JADWAL SEDIA PARTISIPAN</b>" <br />pada
+          form di bawah ini.
         </p>
         <div class="form-outline">
           <input
             type="text"
             class="form-control text-center"
-            placeholder="HAPUS SEMUA JADWAL PARTISIPAN"
+            placeholder="HAPUS SEMUA JADWAL SEDIA PARTISIPAN"
             v-model="confirmationText"
           />
         </div>
@@ -35,7 +35,47 @@ import Modal from "../components/Modal.vue";
             data-bs-dismiss="modal"
             @click="resetSchedule"
             v-bind:disabled="
-              confirmationText != 'HAPUS SEMUA JADWAL PARTISIPAN'
+              confirmationText != 'HAPUS SEMUA JADWAL SEDIA PARTISIPAN'
+            "
+          >
+            Perbarui Periode
+          </button>
+        </div>
+      </template>
+    </Modal>
+  </div>
+  <div
+    class="modal fade"
+    :id="'deleteCurrentScheduleModal'"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <Modal title="Hapus Jadwal Saat Ini">
+      <template #modalContent>
+        <img src="@/assets/icons/InfoDanger.svg" alt="Info Danger" />
+        <p class="mt-4">
+          Jadwal yang telah diterbitkan dibawah akan dihapus. Konfirmasi dengan
+          mengetik <br />"<b>HAPUS JADWAL YANG DITERBITKAN</b>" <br />pada form
+          di bawah ini.
+        </p>
+        <div class="form-outline">
+          <input
+            type="text"
+            class="form-control text-center"
+            placeholder="HAPUS JADWAL YANG DITERBITKAN"
+            v-model="confirmationDeleteScheduleText"
+          />
+        </div>
+      </template>
+      <template #buttonConfirm>
+        <div>
+          <button
+            type="button"
+            class="btn btn-danger w-100"
+            data-bs-dismiss="modal"
+            @click="deleteCurrentSchedule"
+            v-bind:disabled="
+              confirmationDeleteScheduleText != 'HAPUS JADWAL YANG DITERBITKAN'
             "
           >
             Perbarui Periode
@@ -71,6 +111,15 @@ import Modal from "../components/Modal.vue";
           </button>
         </div>
         <div class="d-flex">
+          <button
+            v-if="!loading && schedules.length"
+            class="btn-error mt-auto text-light text-small text-bold px-4 me-2"
+            data-bs-toggle="modal"
+            :data-bs-target="'#deleteCurrentScheduleModal'"
+          >
+            <i class="fa fa-trash me-3"></i>
+            <span>Hapus Jadwal</span>
+          </button>
           <button
             class="btn-error mt-auto text-light text-small text-bold px-4"
             data-bs-toggle="modal"
@@ -247,6 +296,7 @@ export default {
       isPengurus: true,
       loading: false,
       confirmationText: "",
+      confirmationDeleteScheduleText: "",
     };
   },
   methods: {
@@ -278,6 +328,31 @@ export default {
       const token = localStorage.getItem("user-token");
       axios
         .get("/schedule/generate", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((response) => {
+          toast.success(response.data.message, {
+            timeout: 2000,
+          });
+          this.getAllSchedule();
+          this.loading = false;
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message, {
+            timeout: 2000,
+          });
+          this.loading = false;
+        });
+    },
+    deleteCurrentSchedule: async function () {
+      this.loading = true;
+      this.schedule = [];
+      this.lastUpdate = null;
+      const token = localStorage.getItem("user-token");
+      axios
+        .delete("/schedule/delete", {
           headers: {
             Authorization: "Bearer " + token,
           },
