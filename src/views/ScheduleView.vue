@@ -78,7 +78,7 @@ import Modal from "../components/Modal.vue";
               confirmationDeleteScheduleText != 'HAPUS JADWAL YANG DITERBITKAN'
             "
           >
-            Perbarui Periode
+            Hapus Jadwal
           </button>
         </div>
       </template>
